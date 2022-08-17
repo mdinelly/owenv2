@@ -221,7 +221,7 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            { nomeEmpresa } - v { versionSystem }
+            Central de Atendimento
             
           </Typography>
 

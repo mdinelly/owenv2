@@ -81,19 +81,6 @@ const MainListItems = (props) => {
         icon={<DashboardOutlinedIcon />}
       />
       <ListItemLink
-        to="/connections"
-        primary={i18n.t("mainDrawer.listItems.connections")}
-        icon={
-          <Badge
-            overlap="rectangular"
-            badgeContent={connectionWarning ? "!" : 0}
-            color="error"
-          >
-            <SyncAltIcon />
-          </Badge>
-        }
-      />
-      <ListItemLink
         to="/tickets"
         primary={i18n.t("mainDrawer.listItems.tickets")}
         icon={<WhatsAppIcon />}
@@ -126,26 +113,6 @@ const MainListItems = (props) => {
           <>
             <Divider />
             <ListSubheader inset>
-              Gerenciar Campanhas
-            </ListSubheader>
-       
-           <ListItemLink
-              to="/BulkMessage"
-              primary="Campanhas"
-              icon={<ChatBubbleOutlineOutlined />}
-            />
-            <ListItemLink
-              to="/ShippingReport"
-              primary="Relatório Envios"
-              icon={<LibraryBooks />}
-            />
-            <ListItemLink
-              to="/SettingsMessage"
-              primary="Config. Envios"
-              icon={<AddCircleOutline />}
-            />
-            <Divider />
-            <ListSubheader inset>
               {i18n.t("mainDrawer.listItems.administration")}
             </ListSubheader>
             <ListItemLink
@@ -163,6 +130,19 @@ const MainListItems = (props) => {
               to="/settings"
               primary={i18n.t("mainDrawer.listItems.settings")}
               icon={<SettingsOutlinedIcon />}
+            />
+            <ListItemLink
+              to="/connections"
+              primary={i18n.t("mainDrawer.listItems.connections")}
+              icon={
+                <Badge
+                  overlap="rectangular"
+                  badgeContent={connectionWarning ? "!" : 0}
+                  color="error"
+                >
+                  <SyncAltIcon />
+                </Badge>
+              }
             />
           <Divider />
             <ListSubheader inset>

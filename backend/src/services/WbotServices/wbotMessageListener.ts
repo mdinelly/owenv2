@@ -61,20 +61,20 @@ const getTypeMessage = (msg: proto.IWebMessageInfo): string => {
 };
 
 const getBodyButton = (msg: proto.IWebMessageInfo): string => {
-  if (msg.key.fromMe && msg?.message?.buttonsMessage?.contentText) {
-    let bodyMessage = `*${msg?.message?.buttonsMessage?.contentText}*`;
+  if (msg.key.fromMe && msg?.message?.viewOnceMessage?.message?.buttonsMessage?.contentText) {
+    let bodyMessage = `*${msg?.message?.viewOnceMessage?.message?.buttonsMessage?.contentText}*`;
     // eslint-disable-next-line no-restricted-syntax
-    for (const buton of msg.message?.buttonsMessage?.buttons) {
+    for (const buton of msg.message?.viewOnceMessage?.message?.buttonsMessage?.buttons) {
       console.log(buton);
       bodyMessage += `\n\n${buton.buttonText?.displayText}`;
     }
     return bodyMessage;
   }
 
-  if (msg.key.fromMe && msg?.message?.listMessage) {
-    let bodyMessage = `*${msg?.message?.listMessage?.description}*`;
+  if (msg.key.fromMe && msg?.message?.viewOnceMessage?.message?.listMessage) {
+    let bodyMessage = `*${msg?.message?.viewOnceMessage?.message?.listMessage?.description}*`;
     // eslint-disable-next-line no-restricted-syntax
-    for (const buton of msg.message?.listMessage?.sections) {
+    for (const buton of msg.message?.viewOnceMessage?.message?.listMessage?.sections) {
       // eslint-disable-next-line no-restricted-syntax
       for (const rows of buton.rows) {
         bodyMessage += `\n\n${rows.title}`;
@@ -105,6 +105,7 @@ export const getBodyMessage = (msg: proto.IWebMessageInfo): string | null => {
         msg.message.listResponseMessage?.title,
       buttonsMessage:
         getBodyButton(msg) || msg.message.listResponseMessage?.title,
+      viewOnceMessage: getBodyButton(msg) || msg.message.listResponseMessage?.title,
       stickerMessage: "sticker",
       contactMessage: msg.message.contactMessage?.vcard,
       contactsArrayMessage: "varios contatos",
@@ -861,10 +862,8 @@ const wbotMessageListener = async (wbot: Session): Promise<void> => {
           !message.key.fromMe &&
           messageUpsert.type === "notify"
         ) {
-          (wbot as WASocket)!.sendReadReceipt(
-            message.key.remoteJid,
-            message.key.participant,
-            [message.key.id]
+          (wbot as WASocket)!.readMessages(
+            [message.key]
           );
         }
         // console.log(JSON.stringify(message));
